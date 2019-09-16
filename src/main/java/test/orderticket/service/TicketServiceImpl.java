@@ -20,19 +20,16 @@ public class TicketServiceImpl implements TicketService {
   
     @Override
         public void save(TicketEntity ticket) {
-
-            ticketRepository.save(ticket);
+        ticketRepository.save(ticket);
         }
-@Override
-  public  List<TicketEntity> orderStatus(String orderStatus) {
+    @Override
+        public  List<TicketEntity> orderStatus(String orderStatus) {
         return ticketRepository.findByOrderStatus(orderStatus);
     }
-
     @Override
-    public TicketEntity findByReference(String routeNumber) {
+        public TicketEntity findByReference(String routeNumber) {
         return ticketRepository.findByReference(routeNumber);
     }
-
 }
 
 
