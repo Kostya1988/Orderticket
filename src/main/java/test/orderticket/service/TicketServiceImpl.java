@@ -21,7 +21,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
         public void save(TicketEntity ticket) {
         ticketRepository.save(ticket);
-        }
+    }
     @Override
         public  List<TicketEntity> orderStatus(String orderStatus) {
         return ticketRepository.findByOrderStatus(orderStatus);
