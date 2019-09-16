@@ -20,7 +20,6 @@ import java.util.Random;
 public class TicketController {
     @Autowired
     private TicketService ticketService;
-
     @RequestMapping(value = "{reference}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ReturnReference> getReference(@PathVariable("reference") String reference) {
         TicketEntity ticketEntity = ticketService.findByReference(reference);
