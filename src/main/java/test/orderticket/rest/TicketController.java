@@ -57,7 +57,7 @@ public class TicketController {
     }
 
     private String randomOrderStatus() {
-        String[] status = {"proceed", "error", "held"};
+        String[] status = {"Failed", "Error", "Final"};
         int index = new Random().nextInt(status.length);
         return status[index];
     }
