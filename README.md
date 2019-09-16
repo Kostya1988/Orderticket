@@ -1,56 +1,39 @@
-Sample ofREST application
+The task
 
-REST application that provides REST API.
+Develop a web application for paying for tickets. The application should consist of an HTTP API and application logic.
 
-Run CustomerService locally
+API
 
-Databse configuration
+The API works in JSON format and consists of two services:
 
-1. Create database customerdemo
-Predefined username - root
-Predefined password - pass
+Service for accepting applications for payment. Receive, validate and save the application in the database.
+At the entrance accepts:
 
-Change in properties if required
+Route Number
 
-spring.datasource.initialize=true
-spring.datasource.schema=classpath*:database/initDB.sql
-spring.datasource.data=classpath*:database/populateDB.sql
+Date and time of departure
+The output gives (if successful):
 
-spring.datasource.url=jdbc:mysql://localhost:3306/customerdemo - database name
-spring.datasource.username=root - username
-spring.datasource.password=pass - password
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver - driver
-spring.jpa.database=mysql - database type
-spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect - dialect
+Request ID
 
+Service for checking the status of the application. Gets data about the application from the database.
+At the entrance accepts:
 
-2. git clone https://github.com/proselytear/customerdemo
-3. cd customerdemo
-4. mvn spring-boot:run
+Request ID
+The output gives:
 
-5. Access CustomerService using next REST requests:
+Application Status
+Applications must be stored in the database (optional).
 
-GET: localhost:9966/api/v1/customers/ - get all customers
-GET: localhost:9966/api/v1/customers/1 - get customer with ID 1
+Application logic
 
-POST: localhost:9966/api/v1/customers/
-Request body:
-{
-	"firstName": "Kolya",
-	"lastName": "Nikolaev",
-	"address": "Test address",
-	"budget": "100500"
-}
+The payment process (runs once a minute):
 
-PUT: localhost:9966/api/v1/customers/
-Request body:
-{
-    "id": 2,
-	"firstName": "Kolya",
-	"lastName": "Nikolaev",
-	"address": "Test address",
-	"budget": "200800"
-}
+Selects an application suitable for holding from the database
 
+Sends a request to the http-service (the service can be implemented in the same application as a separate endpoint) of the payment gateway, which randomly returns statuses (processed, error, completed)
 
-DELETE: localhost:9966/api/v1/customers/2 - delete customer with ID 2
+Updates application status
+
+The statuses “Error” or “Failed” are final, i.e. repeat request not required
+
